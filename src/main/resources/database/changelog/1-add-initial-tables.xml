@@ -13,7 +13,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="add_data_text author="mary">
+    <changeSet id="add_data_text" author="mary">
         <sql>
             insert into data(text) values
             ("Java является объектно-ориентированным"),
