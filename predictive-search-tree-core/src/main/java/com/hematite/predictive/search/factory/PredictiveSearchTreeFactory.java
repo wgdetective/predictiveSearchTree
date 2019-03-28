@@ -11,24 +11,25 @@ import java.util.Map;
 @Component
 @AllArgsConstructor
 public class PredictiveSearchTreeFactory {
-
     private static final int MAX_LIST_ITEMS_COUNT = 10;
 
     private final TextSearchService textSearchService;
 
-    public TreeNode createTree(final List<NodeData<String>> data) {
+    public TreeNode createTree(final List<NodeData> data) {
         final TreeNode rootNode = new TreeNode("", getSubList(data));
+
+        data.forEach(d -> d.setPrefix(textSearchService.calculatePrefixFunction(d.getKey())));
+
         createChildNodes(data, rootNode);
         return rootNode;
     }
 
-    private void createChildNodes(final List<NodeData<String>> words, final TreeNode parentNode) {
+    private void createChildNodes(final List<NodeData> words, final TreeNode parentNode) {
         //TODO spaces and numbers
         for (char letter = 'a'; letter <= 'z'; letter++) {
             final String key = parentNode.getKey() + letter;
-            final List<NodeData<String>> filteredList = textSearchService.search(words, key);
+            final List<NodeData> filteredList = textSearchService.search(words, key);
             if (!filteredList.isEmpty()) {
-
                 final TreeNode childNode = new TreeNode(key, getSubList(filteredList));
                 parentNode.addChildNode(key, childNode);
             }
@@ -39,7 +40,7 @@ public class PredictiveSearchTreeFactory {
         }
     }
 
-    private List<NodeData<String>> getSubList(final List<NodeData<String>> list) {
+    private List<NodeData> getSubList(final List<NodeData> list) {
         return list.subList(0, Math.min(MAX_LIST_ITEMS_COUNT, list.size()));
     }
 }

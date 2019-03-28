@@ -11,15 +11,15 @@ import java.util.Map;
 @AllArgsConstructor
 public class TreeNode {
     private final String key;
-    private final List<NodeData<String>> values;
+    private final List<NodeData> values;
     private final Map<String, TreeNode> childNodes;
     private final TreeNode parentNode;
 
-    public TreeNode(final String key, final List<NodeData<String>> values) {
+    public TreeNode(final String key, final List<NodeData> values) {
         this(key, values, null);
     }
 
-    public TreeNode(final String key, final List<NodeData<String>> values, final TreeNode parentNode) {
+    public TreeNode(final String key, final List<NodeData> values, final TreeNode parentNode) {
         this(key, values, new HashMap<>(), parentNode);
     }
 

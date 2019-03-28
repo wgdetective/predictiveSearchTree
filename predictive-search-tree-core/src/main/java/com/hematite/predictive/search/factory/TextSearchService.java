@@ -12,26 +12,27 @@ import java.util.List;
 @Service
 public class TextSearchService {
 
-    public List<NodeData<String>> search(final List<NodeData<String>> startedList,
-                                         final String text) {
-        final List<NodeData<String>> matchedList = new ArrayList<>();
-        for (final NodeData<String> value : startedList) {
-            if (compareWithKey(value.getData().toLowerCase(), text)) {
-                matchedList.add(value);
+    public List<NodeData> search(final List<NodeData> originalData,
+                                 final String text) {
+        final List<NodeData> matchedList = new ArrayList<>();
+        for (final NodeData data : originalData) {
+            if (compareWithKey(data, text)) {
+                matchedList.add(data);
             }
         }
         return matchedList;
     }
 
-    private boolean compareWithKey(final String data, final String text) {
-        final List<Integer> prefix = prefixFunction(text);
+    private boolean compareWithKey(final NodeData data, final String text) {
+        final List<Integer> prefix = data.getPrefix();
+        final String keyString = data.getKey().toLowerCase();
 
         int j = 0;
-        for (int i = 0; i < data.length(); i++) {
-            while (j > 0 && data.charAt(i) != text.charAt(j)) {
+        for (int i = 0; i < keyString.length(); i++) {
+            while (j > 0 && keyString.charAt(i) != text.charAt(j)) {
                 j = prefix.get(j - 1);
             }
-            if (data.charAt(i) == text.charAt(j)) {
+            if (keyString.charAt(i) == text.charAt(j)) {
                 j++;
                 if (j == text.length()) {
                     return true;
@@ -42,7 +43,7 @@ public class TextSearchService {
         return false;
     }
 
-    private List<Integer> prefixFunction(final String text) {
+    public List<Integer> calculatePrefixFunction(final String text) {
         final List<Integer> prefix = new ArrayList<>();
         prefix.add(0);
 
