@@ -1,9 +1,11 @@
 package dataprovider;
 
+import com.hematite.predictive.search.tree.NodeData;
+
 import java.util.List;
 
-public interface DataProvider {
+public interface DataProvider<T> {
 
-    List<Object> getAllData();
+    List<NodeData<T>> getAllData();
 
 }

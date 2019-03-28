@@ -1,31 +1,32 @@
 package dataprovider;
 
+import com.hematite.predictive.search.tree.NodeData;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDataProvider implements DataProvider {
+public class FileDataProvider implements DataProvider<String> {
 
-    private final File fileName;
+    private final String fileName;
 
-    public FileDataProvider(final File fileName) {
+    public FileDataProvider(final String fileName) {
         this.fileName = fileName;
     }
 
     @Override
-    public List<Object> getAllData() {
-        List<Object> dataList = new ArrayList<>();
+    public List<NodeData<String>> getAllData() {
+        final List<NodeData<String>> dataList = new ArrayList<>();
 
         try {
-            final FileInputStream fileInputStream = new FileInputStream(fileName);
-            final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-            String strLine;
-            while ((strLine = bufferedReader.readLine()) != null){
-                dataList.add(strLine);
+            final List<String> lines = Files.readAllLines(new File(fileName).toPath());
+            for (final String line : lines) {
+                dataList.add(new NodeData<>(line, line));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (final IOException e) {
+            //TODO logger
             e.printStackTrace();
         }
         return dataList;

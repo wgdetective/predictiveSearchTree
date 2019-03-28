@@ -1,5 +1,7 @@
 package dataprovider;
 
+import com.hematite.predictive.search.tree.NodeData;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,10 +11,9 @@ import java.util.Properties;
 
 public class MysqlDataProvider implements DataProvider {
 
-    private final TreeNodeRepository treeNodeRepository;
 
     @Override
-    public List<Object> getAllData() {
-        return treeNodeRepository.findAll();
+    public List<NodeData> getAllData() {
+        return null;
     }
 }
