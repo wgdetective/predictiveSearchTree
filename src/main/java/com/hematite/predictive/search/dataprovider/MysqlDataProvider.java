@@ -1,13 +1,8 @@
-package dataprovider;
+package com.hematite.predictive.search.dataprovider;
 
 import com.hematite.predictive.search.tree.NodeData;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.*;
 import java.util.List;
-import java.util.Properties;
 
 public class MysqlDataProvider implements DataProvider {
 

@@ -1,4 +1,4 @@
-package dataprovider;
+package com.hematite.predictive.search.dataprovider;
 
 import com.hematite.predictive.search.tree.NodeData;
 import org.slf4j.Logger;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class FileDataProvider implements DataProvider<String> {
 
-    private final Logger logger = LoggerFactory.getLogger(FileDataProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileDataProvider.class);
 
     private final String fileName;
 
@@ -30,7 +30,7 @@ public class FileDataProvider implements DataProvider<String> {
                 dataList.add(new NodeData<>(line, line));
             }
         } catch (final IOException e) {
-            logger.error("Error while reading from file");
+            LOGGER.error("Error while reading from file", e);
         }
         return dataList;
     }

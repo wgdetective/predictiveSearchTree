@@ -1,6 +1,5 @@
-package dataprovider;
+package com.hematite.predictive.search.dataprovider;
 
-import com.hematite.predictive.search.tree.TreeNode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
