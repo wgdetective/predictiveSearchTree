@@ -1,7 +1,6 @@
 package com.hematite.predictive.search.factory;
 
 import com.hematite.predictive.search.tree.NodeData;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +8,24 @@ import java.util.List;
 /**
  * @author Wladimir Litvinov
  */
-@Service
 public class TextSearchService {
+
+    public List<Integer> calculatePrefixFunction(final String text) {
+        final List<Integer> prefix = new ArrayList<>();
+        prefix.add(0);
+
+        int k = 0;
+        for (int i = 1; i < text.length(); ++i) {
+            while ((k > 0) && (text.charAt(k) != text.charAt(i))) {
+                k = prefix.get(k - 1);
+            }
+            if (text.charAt(k) == text.charAt(i)) {
+                ++k;
+            }
+            prefix.add(k);
+        }
+        return prefix;
+    }
 
     public List<NodeData> search(final List<NodeData> originalData,
                                  final String text) {
@@ -41,22 +56,5 @@ public class TextSearchService {
         }
 
         return false;
-    }
-
-    public List<Integer> calculatePrefixFunction(final String text) {
-        final List<Integer> prefix = new ArrayList<>();
-        prefix.add(0);
-
-        int k = 0;
-        for (int i = 1; i < text.length(); ++i) {
-            while ((k > 0) && (text.charAt(k) != text.charAt(i))) {
-                k = prefix.get(k - 1);
-            }
-            if (text.charAt(k) == text.charAt(i)) {
-                ++k;
-            }
-            prefix.add(k);
-        }
-        return prefix;
     }
 }

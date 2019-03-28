@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/predictive-search-tree")
 public class SearchController {
 
+
     @GetMapping("/search")
     public List<NodeData<String>> search(final String text, final Long prevSearchNodeId) {
         return null;

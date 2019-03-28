@@ -2,18 +2,14 @@ package com.hematite.predictive.search.factory;
 
 import com.hematite.predictive.search.tree.NodeData;
 import com.hematite.predictive.search.tree.TreeNode;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
-@Component
-@AllArgsConstructor
 public class PredictiveSearchTreeFactory {
     private static final int MAX_LIST_ITEMS_COUNT = 10;
 
-    private final TextSearchService textSearchService;
+    private final TextSearchService textSearchService = new TextSearchService();
 
     public TreeNode createTree(final List<NodeData> data) {
         final TreeNode rootNode = new TreeNode("", getSubList(data));

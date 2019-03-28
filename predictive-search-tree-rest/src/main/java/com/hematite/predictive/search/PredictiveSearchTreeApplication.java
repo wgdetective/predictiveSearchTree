@@ -1,4 +1,4 @@
-package com.hematite.predictive.search.rest;
+package com.hematite.predictive.search;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
