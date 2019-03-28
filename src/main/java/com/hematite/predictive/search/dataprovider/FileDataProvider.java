@@ -1,6 +1,7 @@
 package com.hematite.predictive.search.dataprovider;
 
 import com.hematite.predictive.search.tree.NodeData;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,15 +11,12 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 public class FileDataProvider implements DataProvider<String> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileDataProvider.class);
 
     private final String fileName;
-
-    public FileDataProvider(final String fileName) {
-        this.fileName = fileName;
-    }
 
     @Override
     public List<NodeData<String>> getAllData() {
