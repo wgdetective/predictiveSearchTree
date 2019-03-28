@@ -1,4 +1,4 @@
-package com.hematite.predictive.serch.tree;
+package com.hematite.predictive.search.tree;
 
 import lombok.Data;
 
