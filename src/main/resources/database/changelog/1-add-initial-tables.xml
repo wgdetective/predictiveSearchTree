@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_data_table" author="mary">
+        <createTable tableName="data">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="text"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_data_text author="mary">
+        <sql>
+            insert into data(text) values
+            ("Java является объектно-ориентированным"),
+            ("языком программирования"),
+            ("вследствие чего предварительно будут приведены"),
+            ("основные парадигмы ООП."),
+            ("В связи с проникновением компьютеров во все"),
+            ("сферы социума программные системы становятся более"),
+            ("простыми для пользователя и сложными по внутренней"),
+            ("архитектуре. Программирование стало делом команды, где маленьким"),
+            ("проектом");
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
