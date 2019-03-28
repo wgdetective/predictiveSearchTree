@@ -1,4 +1,4 @@
-package com.wgdetective.predictive.tree;
+package com.hematite.predictive.serch.tree;
 
 import lombok.Data;
 
