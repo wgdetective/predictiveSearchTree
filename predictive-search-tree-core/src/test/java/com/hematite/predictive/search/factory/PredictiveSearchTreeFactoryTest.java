@@ -3,7 +3,6 @@ package com.hematite.predictive.search.factory;
 import com.hematite.predictive.search.mock.NodeDataMock;
 import com.hematite.predictive.search.tree.NodeData;
 import com.hematite.predictive.search.tree.TreeNode;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,12 +17,7 @@ import static org.junit.Assert.assertTrue;
 
 public class PredictiveSearchTreeFactoryTest {
 
-    private static PredictiveSearchTreeFactory factory;
-
-    @BeforeClass
-    public static void init() {
-        factory = new PredictiveSearchTreeFactory();
-    }
+    private PredictiveSearchTreeFactory factory = new PredictiveSearchTreeFactory();
 
     @Test
     public void testCreation() {

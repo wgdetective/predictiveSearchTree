@@ -17,7 +17,7 @@ public class TextSearchServiceTest {
     private static final String WRONG_VALUE = "wrong";
     private static final String SEARCH_VALUE = "ca";
 
-    private TextSearchService textSearchService = new TextSearchService();
+    private final TextSearchService textSearchService = new TextSearchService();
 
     @Test
     public void prefixFunctionCalculationTest() {
@@ -31,7 +31,7 @@ public class TextSearchServiceTest {
     @Test
     public void searchTest() {
         final List<NodeData> nodeData = NodeDataMock.createList(Arrays.asList(TEST_VALUE, WRONG_VALUE));
-        final NodeData expectedNode = new NodeData(TEST_VALUE, TEST_VALUE);
+        final NodeData<String> expectedNode = new NodeData(TEST_VALUE, TEST_VALUE);
 
         final List<NodeData> resultData = textSearchService.search(nodeData, SEARCH_VALUE);
 
