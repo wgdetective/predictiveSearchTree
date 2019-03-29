@@ -29,6 +29,7 @@ public class PredictiveSearchTreeFactoryTest {
     public void testCreation() {
         final List<String> valuesList = new ArrayList<>(Arrays.asList("ab","cd"));
         final List<NodeData> nodeData = NodeDataMock.createList(valuesList);
+
         final TreeNode node = factory.createTree(nodeData);
 
         assertNotNull(node);
@@ -48,6 +49,7 @@ public class PredictiveSearchTreeFactoryTest {
     public void testCreationWithSpace() {
         final List<String> valuesList = new ArrayList<>(Collections.singleton("a b"));
         final List<NodeData> nodeData = NodeDataMock.createList(valuesList);
+
         final TreeNode node = factory.createTree(nodeData);
 
         assertNotNull(node);
