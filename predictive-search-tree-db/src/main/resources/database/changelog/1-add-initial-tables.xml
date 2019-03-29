@@ -16,116 +16,33 @@
     </changeSet>
 
     <changeSet id="add_tree_node_text" author="mary">
+
+        <createProcedure path="proc/mysql.sql"
+                         procedureName="fill_tree_node"
+                         schemaName="predictiveSearchTree">
+        </createProcedure>
+
+    </changeSet>
+
+    <changeSet id="call_proc_for_tree_node" author="mary">
         <sql>
-
-            DELIMITER $$
-            CREATE PROCEDURE ABC()
-
-            BEGIN
-                DECLARE a INT Default 1 ;
-                simple_loop: LOOP
-
-            insert into data(name, description) values
-            ("Java является", "Java является"),
-            ("Java является", "Java является"),
-            ("объектно-о", "объектно-о"),
-            ("риентирован", "риентирован"),
-            ("ным", "ным"),
-            ("языком програ", "языком програ"),
-            ("ммирования,", "ммирования,"),
-            ("вследствие че", "ммирования"),
-            ("го предварите", "ммировани"),
-            ("льно буд", "ммирования"),
-            ("ут пр", "ьзователя и"),
-            ("ив", "ьзователя и"),
-            ("едены", "ьзователя и"),
-            ("ос", "ьзователя и"),
-            ("новные пара", "ьзователя и"),
-            ("дигмы ООП.", "ьзователя и"),
-            ("В связи с п", "ьзователя и"),
-            ("роникновение", "ьзователя и"),
-            ("м к", "ьзователя и"),
-            ("омпьютеров", "ьзователя и"),
-            ("во все", "ьзователя и"),
-            ("сферы социум", "ьзователя и"),
-            ("а программные с", "ммирования"),
-            ("истемы становятс", "ммирования"),
-            ("я более", "ммирования"),
-            ("прос", "ммирования"),
-            ("тыми для", "ммирования"),
-            ("пол", "пол"),
-            ("ьзователя и", "ьзователя и"),
-            ("сложными по", "ьзователя и"),
-            ("внутренней", "ьзователя и"),
-            ("архитектуре.", "ьзователя и"),
-            ("Программи", "Программи"),
-            ("рование стало", "Программи"),
-            ("делом команды,", "Программи"),
-            ("где маленьким", "Программи"),
-            ("проектом", "Программи"),
-            ("считается", "Программи"),
-            ("тот,", "Программи"),
-            ("который выполн", "Программи"),
-            ("яет команда", "Программи"),
-            ("Java является", "Программи"),
-            ("объектно-о", "Программи"),
-            ("риентирован", "Программи"),
-            ("ным", "Программи"),
-            ("языком програ", "Программи"),
-            ("ммирования,", "Программи"),
-            ("вследствие че", "Программи"),
-            ("го предварите", "Программи"),
-            ("льно буд", "Программи"),
-            ("ут пр", "Программи");
-
-                SET a=a+1;
-                IF a=10460 THEN
-                LEAVE simple_loop;
-                END IF;
-            END LOOP simple_loop;
-            END $$
-
+            call fill_tree_node();
         </sql>
     </changeSet>
 
-    <changeSet id="call_proc_for_tree_node_" author="mary">
-        <sql>
-            call ABC();
-        </sql>
+    <changeSet id="add_dates" author="mary">
+
+        <createProcedure path="proc/addDates.sql"
+                         procedureName="add_dates"
+                         schemaName="predictiveSearchTree">
+        </createProcedure>
+
     </changeSet>
 
-    <changeSet id="add_proc_for_date_" author="mary">
+    <changeSet id="call_proc_for_add_dates" author="mary">
         <sql>
-
-            DELIMITER $$
-            CREATE PROCEDURE ADD_DATE()
-
-            BEGIN
-            DECLARE a INT Default 1 ;
-            simple_loop: LOOP
-
-            INSERT INTO `tree_node`(date) VALUES(
-                FROM_UNIXTIME(
-                UNIX_TIMESTAMP('2010-04-30 14:53:27') + FLOOR(0 + (RAND() * 63072000))
-                );
-            )
-
-            SET a=a+1;
-            IF a=523000 THEN
-            LEAVE simple_loop;
-            END IF;
-            END LOOP simple_loop;
-            END $$
-
+            call add_dates();
         </sql>
     </changeSet>
-
-    <changeSet id="call_proc_for_add_date" author="mary">
-        <sql>
-            call ADD_DATE();
-        </sql>
-    </changeSet>
-
-
 
 </databaseChangeLog>
