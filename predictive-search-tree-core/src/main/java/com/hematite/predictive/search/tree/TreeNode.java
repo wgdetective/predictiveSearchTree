@@ -2,6 +2,7 @@ package com.hematite.predictive.search.tree;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
+@ToString(exclude = {"childNodes"})
 public class TreeNode {
     private final String key;
     private final List<NodeData> values;
@@ -26,12 +28,13 @@ public class TreeNode {
     }
 
     public List<NodeData> search(final String text) {
-        if (key.equals(text)) {
+        final String normalizedText = text.toLowerCase();
+        if (key.equals(normalizedText)) {
             return values;
         } else if (!childNodes.isEmpty()) {
-            final TreeNode treeNode = childNodes.get(text.substring(0, key.length() + 1));
+            final TreeNode treeNode = childNodes.get(normalizedText.substring(0, key.length() + 1));
             if (treeNode != null) {
-                return treeNode.search(text);
+                return treeNode.search(normalizedText);
             }
         }
         return Collections.emptyList();
