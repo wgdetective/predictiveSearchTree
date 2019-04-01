@@ -1,19 +1,21 @@
 package com.hematite.predictive.search.dataprovider;
 
 import com.hematite.predictive.search.tree.NodeData;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class SqlDataProvider implements DataProvider {
 
-    @Autowired
-    private TreeNodeRepository treeNodeRepository;
+    private final TreeNodeRepository treeNodeRepository;
+
+    private NodeDataConverter nodeDataConverter;
 
     @Override
-    public List<NodeData> getAllData() {
-        return treeNodeRepository.findAll();
+    public List<NodeData<String>> getAllData() {
+        return nodeDataConverter.convertToDto(treeNodeRepository.findAll());
     }
 }
