@@ -25,6 +25,12 @@
             <artifactId>predictive-search-tree-db</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.hematit</groupId>
+            <artifactId>predictive-search-tree-file</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
