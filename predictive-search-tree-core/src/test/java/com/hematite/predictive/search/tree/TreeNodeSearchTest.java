@@ -23,7 +23,7 @@ public class TreeNodeSearchTest {
     public void init() throws URISyntaxException, IOException {
         final ArrayList<NodeData> data = new ArrayList<>();
         final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("cities.txt").toURI()));
-        lines.forEach(l -> data.add(new NodeData(l, l)));
+        lines.forEach(l -> data.add(new NodeData(l.toLowerCase(), l)));
         root = new PredictiveSearchTreeFactory().createTree(data);
     }
 
@@ -31,5 +31,11 @@ public class TreeNodeSearchTest {
     public void searchTest() {
         final List<NodeData> search = root.search("Mu");
         assertEquals(search.size(), 3);
+    }
+
+    @Test
+    public void searchTestWithEmptyResult() {
+        final List<NodeData> search = root.search("wrong_string");
+        assertEquals(search.size(), 0);
     }
 }

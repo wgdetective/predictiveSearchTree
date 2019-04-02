@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class PredictiveSearchTreeFactory {
     private static final int MAX_LIST_ITEMS_COUNT = 10;
-    private static final String SPACE = " ";
 
     private final List<String> symbols = initSymbols();
 
@@ -20,25 +19,36 @@ public class PredictiveSearchTreeFactory {
 
         data.forEach(d -> d.setPrefix(textSearchService.calculatePrefixFunction(d.getKey())));
 
-        createChildNodes(data, rootNode);
+        for (final String key : symbols) {
+            final List<NodeData> filteredList = textSearchService.search(data, key);
+            if (!filteredList.isEmpty()) {
+                final TreeNode childNode = new TreeNode(key, new ArrayList<>(), rootNode);
+                rootNode.addChildNode(key, childNode);
+                createChildNodes(filteredList, childNode);
+            }
+        }
+
         return rootNode;
     }
 
     private void createChildNodes(final List<NodeData> words, final TreeNode parentNode) {
-        for (final String symbol : symbols) {
-            final String key = parentNode.getKey() + symbol;
-            final List<NodeData> filteredList = textSearchService.search(words, key);
-            if (!filteredList.isEmpty()) {
-                final TreeNode childNode = new TreeNode(key, getSubList(filteredList), parentNode);
-                parentNode.addChildNode(key, childNode);
+        parentNode.getValues().addAll(getSubList(words));
+        for (final NodeData nodeData : words) {
+            final int startIndex = nodeData.getKey().indexOf(parentNode.getKey());
+            final int endIndex = startIndex + parentNode.getKey().length() + 1;
+
+            if (startIndex > -1 && endIndex < nodeData.getKey().length()) {
+                final String newKey = nodeData.getKey().substring(startIndex, endIndex);
+                if (!parentNode.getChildNodes().containsKey(newKey)) {
+                    final TreeNode childNode = new TreeNode(newKey, new ArrayList<>(), parentNode);
+                    parentNode.addChildNode(newKey, childNode);
+                }
             }
-        }
-        if (!symbols.contains(SPACE)) {
-            symbols.add(SPACE);
         }
 
         for (final Map.Entry<String, TreeNode> childNode : parentNode.getChildNodes().entrySet()) {
-            createChildNodes(words, childNode.getValue());
+            final List<NodeData> filteredList = textSearchService.search(words, childNode.getKey());
+            createChildNodes(filteredList, childNode.getValue());
         }
     }
 
