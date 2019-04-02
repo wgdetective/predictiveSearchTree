@@ -11,7 +11,7 @@
 
     <artifactId>predictive-search-tree-db</artifactId>
 
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
