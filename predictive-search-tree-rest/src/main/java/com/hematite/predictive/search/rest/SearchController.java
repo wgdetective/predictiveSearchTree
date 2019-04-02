@@ -21,9 +21,8 @@ public class SearchController {
     private final PredictiveSearchService searchService;
 
     @GetMapping("/search")
-    public List<NodeData> search(@RequestParam("searchValue") final String text,
-                                 final Long prevSearchNodeId) {
-        return searchService.search(text);
+    public List<NodeData> search(@RequestParam final String searchValue) {
+        return searchService.search(searchValue);
     }
 
 }
