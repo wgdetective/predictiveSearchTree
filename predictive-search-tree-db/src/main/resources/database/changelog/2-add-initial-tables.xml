@@ -4,30 +4,30 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="add_tree_node_text" author="mary">
+    <!--<changeSet id="add_tree_node_text" author="mary">-->
 
-        <sqlFile dbms="mysql" path="./predictive-search-tree-db/src/main/resources/sql/hotels.sql" />
+        <!--<sqlFile dbms="mysql" path="./predictive-search-tree-db/src/main/resources/sql/hotels.sql" />-->
 
-    </changeSet>
+    <!--</changeSet>-->
 
 
     <!--hotels.hotelbeds.2019-03-26T23_00_01-->
 
 
-    <!--<changeSet id="add_tree_node_text3_2_1" author="mary">
+    <changeSet id="writeData" author="mary">
 
-        <createProcedure path="sql/hotels.hotelbeds.2019-03-26T23_00_01_2_1.sql"
-                         procedureName="fill_tree_node_3_2_1"
+        <createProcedure path="sql/hotels.sql"
+                         procedureName="writeData"
                          schemaName="predictiveSearchTree">
         </createProcedure>
 
     </changeSet>
 
-    <changeSet id="call_proc_for_tree_node_3_2_1" author="mary">
+    <changeSet id="call_writeData" author="mary">
         <sql>
-            call fill_tree_node_3_2_1();
+            call writeData();
         </sql>
-    </changeSet>-->
+    </changeSet>
 
     <!--<changeSet id="add_tree_node_text3_2_2" author="mary">
 

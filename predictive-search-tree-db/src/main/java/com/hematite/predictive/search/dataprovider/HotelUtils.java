@@ -51,7 +51,9 @@ public class HotelUtils {
             newFile.createNewFile();
 
             FileWriter fileWriter = new FileWriter(newFile, false);
-            fileWriter.write("INSERT INTO hotels values(\n");
+            fileWriter.write("CREATE PROCEDURE writeData()\n" +
+                    "BEGIN\n" +
+                    "INSERT INTO hotels(ids, location, star, phoneOne, phoneTwo, site, email, latitude, longitude, name, address, language) values\n");
             fileWriter.write("\n");
 
             //String[] fileNames = new String[1];
@@ -99,6 +101,8 @@ public class HotelUtils {
                 reader = new CSVReader(new FileReader(csvFile));
                 String[] values;
                 while ((values = reader.readNext()) != null) {
+                    values[16].replace("\'", "\\\'");
+                    values[16].replace("\"", "\\\"");
                     fileWriter.write("(\"" + values[0] + "\", \"" + values[1] + "\", \"" + values[4] + "\", \"" + values[6] + "\", \"" + values[7] +
                             "\", \"" + values[8] + "\", \"" + values[11] + "\", \"" + values[12] + "\", \"" + values[13] + "\", \"" + values[15] + "\", \"" +
                             values[16] + "\", \"" + values[17] + "\"),\n");
@@ -107,7 +111,7 @@ public class HotelUtils {
                 e.printStackTrace();
             }
 
-            fileWriter.write("\n);");
+            fileWriter.write(";\nEND");
             fileWriter.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
