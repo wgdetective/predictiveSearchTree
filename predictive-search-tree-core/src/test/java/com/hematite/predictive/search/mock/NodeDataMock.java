@@ -10,7 +10,7 @@ public class NodeDataMock {
     public static List<NodeData> createList(final List<String> values) {
         final List<NodeData> data = new ArrayList<>();
         for (final String value : values) {
-            data.add(new NodeData(value, value));
+            data.add(new NodeData(value.toLowerCase(), value));
         }
         return data;
     }

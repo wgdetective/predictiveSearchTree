@@ -37,7 +37,7 @@ public class PredictiveSearchTreeFactory {
             final int startIndex = nodeData.getKey().indexOf(parentNode.getKey());
             final int endIndex = startIndex + parentNode.getKey().length() + 1;
 
-            if (startIndex > -1 && endIndex < nodeData.getKey().length()) {
+            if (startIndex > -1 && endIndex < nodeData.getKey().length() + 1) {
                 final String newKey = nodeData.getKey().substring(startIndex, endIndex);
                 if (!parentNode.getChildNodes().containsKey(newKey)) {
                     final TreeNode childNode = new TreeNode(newKey, new ArrayList<>(), parentNode);
