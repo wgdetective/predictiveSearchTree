@@ -7,5 +7,6 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <include file="changelog/1-add-initial-tables.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/2-add-initial-tables.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
