@@ -40,7 +40,7 @@ public class TextSearchService {
 
     private boolean compareWithKey(final NodeData data, final String text) {
         final List<Integer> prefix = data.getPrefix();
-        final String keyString = data.getKey().toLowerCase();
+        final String keyString = data.getKey();
 
         int j = 0;
         for (int i = 0; i < keyString.length(); i++) {

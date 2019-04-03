@@ -25,7 +25,7 @@ public class FileDataProvider implements DataProvider<String> {
         try {
             final List<String> lines = Files.readAllLines(new File(fileName).toPath());
             for (final String line : lines) {
-                dataList.add(new NodeData<>(line, line));
+                dataList.add(new NodeData<>(line.toLowerCase(), line));
             }
         } catch (final IOException e) {
             LOGGER.error("Error while reading from file", e);

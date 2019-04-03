@@ -4,14 +4,14 @@ import com.hematite.predictive.search.dataprovider.DataProvider;
 import com.hematite.predictive.search.factory.PredictiveSearchTreeFactory;
 import com.hematite.predictive.search.tree.NodeData;
 import com.hematite.predictive.search.tree.TreeNode;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PredictiveSearchService {
 
     private final DataProvider dataProvider;
