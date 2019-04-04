@@ -15,10 +15,8 @@ public class SqlDataProvider implements DataProvider {
 
     private final HotelRepository hotelRepository;
 
-    private HotelConverter hotelConverter;
-
     @Override
-    public List<NodeData<String>> getAllData() {
-        return hotelConverter.convertToDto(hotelRepository.findAll());
+    public List<NodeData> getAllData() {
+        return HotelConverter.convertToDto(hotelRepository.findAll());
     }
 }
