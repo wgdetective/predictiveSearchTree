@@ -4,107 +4,16 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <!--<changeSet id="add_tree_node_text" author="mary">-->
-
-        <!--<sqlFile dbms="mysql" path="./predictive-search-tree-db/src/main/resources/sql/hotels.sql" />-->
-
-    <!--</changeSet>-->
-
-
-    <!--hotels.hotelbeds.2019-03-26T23_00_01-->
-
-
-    <changeSet id="writeData" author="mary">
-
-        <createProcedure path="sql/hotels.sql"
-                         procedureName="writeData"
-                         schemaName="predictiveSearchTree">
-        </createProcedure>
-
+    <changeSet id="add_tree_node_text" author="mary">
+        <sqlFile dbms="mysql" path="./sql/hotels1.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels2.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels3.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels4.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels5.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels6.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels7.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels8.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels9.sql" />
+        <sqlFile dbms="mysql" path="./sql/hotels10.sql" />
     </changeSet>
-
-    <changeSet id="call_writeData" author="mary">
-        <sql>
-            call writeData();
-        </sql>
-    </changeSet>
-
-    <!--<changeSet id="add_tree_node_text3_2_2" author="mary">
-
-        <createProcedure path="sql/hotels.hotelbeds.2019-03-26T23_00_01_2_2.sql"
-                         procedureName="fill_tree_node_3_2_2"
-                         schemaName="predictiveSearchTree">
-        </createProcedure>
-
-    </changeSet>
-
-    <changeSet id="call_proc_for_tree_node_3_2_2" author="mary">
-        <sql>
-            call fill_tree_node_3_2_2();
-        </sql>
-    </changeSet>-->
-
-
-    <!--<changeSet id="add_tree_node_text3_2_3" author="mary">
-
-        <createProcedure path="sql/hotels.hotelbeds.2019-03-26T23_00_01_2_3.sql"
-                         procedureName="fill_tree_node_3_2_3"
-                         schemaName="predictiveSearchTree">
-        </createProcedure>
-
-    </changeSet>
-
-    <changeSet id="call_proc_for_tree_node_3_2_3" author="mary">
-        <sql>
-            call fill_tree_node_3_2_3();
-        </sql>
-    </changeSet>-->
-
-    <!--<changeSet id="add_tree_node_text3_2_4" author="mary">
-
-        <createProcedure path="sql/hotels.hotelbeds.2019-03-26T23_00_01_2_4.sql"
-                         procedureName="fill_tree_node_3_2_4"
-                         schemaName="predictiveSearchTree">
-        </createProcedure>
-
-    </changeSet>
-
-    <changeSet id="call_proc_for_tree_node_3_2_4" author="mary">
-        <sql>
-            call fill_tree_node_3_2_4();
-        </sql>
-    </changeSet>-->
-
-    <!--<changeSet id="add_tree_node_text3_2_5" author="mary">
-
-        <createProcedure path="sql/hotels.hotelbeds.2019-03-26T23_00_01_2_5.sql"
-                         procedureName="fill_tree_node_3_2_5"
-                         schemaName="predictiveSearchTree">
-        </createProcedure>
-
-    </changeSet>
-
-    <changeSet id="call_proc_for_tree_node_3_2_5" author="mary">
-        <sql>
-            call fill_tree_node_3_2_5();
-        </sql>
-    </changeSet>-->
-
-
-    <!--тут чтото не раьотает-->
-    <!--<changeSet id="add_tree_node_text3_2_6" author="mary">
-
-        <createProcedure path="sql/hotels.hotelbeds.2019-03-26T23_00_01_2_6.sql"
-                         procedureName="fill_tree_node_3_2_6"
-                         schemaName="predictiveSearchTree">
-        </createProcedure>
-
-    </changeSet>
-
-    <changeSet id="call_proc_for_tree_node_3_2_6" author="mary">
-        <sql>
-            call fill_tree_node_3_2_6();
-        </sql>
-    </changeSet>-->
-
 </databaseChangeLog>
