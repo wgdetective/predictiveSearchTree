@@ -10,17 +10,8 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="ids" type="text"/>
-            <column name="location" type="text"/>
             <column name="star" type="varchar(20)"/>
-            <column name="phoneOne" type="text"/>
-            <column name="phoneTwo" type="text"/>
-            <column name="site" type="text"/>
-            <column name="email" type="text"/>
-            <column name="latitude" type="varchar(20)"/>
-            <column name="longitude" type="varchar(20)"/>
             <column name="name" type="text"/>
-            <column name="address" type="text"/>
-            <column name="language" type="text"/>
 
         </createTable>
     </changeSet>

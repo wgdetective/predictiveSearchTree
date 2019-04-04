@@ -15,16 +15,7 @@ public class HotelEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String ids;
-    private String location;
     private String star;
-    private String phoneOne;
-    private String phoneTwo;
-    private String site;
-    private String email;
-    private String latitude;
-    private String longitude;
     private String name;
-    private String address;
-    private String language;
 
 }

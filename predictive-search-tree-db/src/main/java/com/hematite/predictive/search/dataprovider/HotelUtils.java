@@ -15,7 +15,7 @@ public class HotelUtils {
             final FileWriter fileWriter = new FileWriter(newFile, false);
             fileWriter.write("CREATE PROCEDURE writeData()\n" +
                     "BEGIN\n" +
-                    "INSERT INTO hotels(ids, location, star, phoneOne, phoneTwo, site, email, latitude, longitude, name, address, language) values");
+                    "INSERT INTO hotels(ids, star, name) values");
 
             final List<String> filesWithDefaultSeparator = new ArrayList<>();
             filesWithDefaultSeparator.add("./predictive-search-tree-db/src/main/resources/csvFilesNew/hotels.gta.2019-03-26T23_00_01.csv");
@@ -54,25 +54,15 @@ public class HotelUtils {
         final CSVReader reader = specialSeparator ?
                 new CSVReader(new FileReader(filePath), ';') : new CSVReader(new FileReader(filePath));
         String[] values = reader.readNext();
-        replaceSymbols(values);
         writeFile(fileWriter, values);
         while ((values = reader.readNext()) != null) {
-            replaceSymbols(values);
             fileWriter.write(",");
             writeFile(fileWriter, values);
         }
     }
 
-    private static void replaceSymbols(final String[] values) {
-        values[12] = values[12].replaceAll("\"", "");
-        values[15] = values[15].replaceAll("\"", "");
-        values[16] = values[16].replaceAll("\"", "");
-    }
-
     private static void writeFile(final FileWriter fileWriter,
                                   final String[] values) throws IOException {
-        fileWriter.write("\n(\"" + values[0] + "\", \"" + values[1] + "\", \"" + values[4] + "\", \"" + values[6] + "\", \"" + values[7] +
-                "\", \"" + values[8] + "\", \"" + values[11] + "\", \"" + values[12] + "\", \"" + values[13] + "\", \"" + values[15] + "\", \"" +
-                values[16] + "\", \"" + values[17] + "\")");
+        fileWriter.write("\n(\"" + values[0] + "\", \"" + values[4] + "\", \"" + values[15] + "\")");
     }
 }
