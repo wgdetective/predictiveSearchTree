@@ -12,7 +12,7 @@ public class HotelConverter {
         final List<NodeData> dataList = new ArrayList<>();
 
         for (HotelEntity hotelEntity : hotelEntityList) {
-            dataList.add(new NodeData<>(hotelEntity.getName().toLowerCase(), hotelEntity.getName().toLowerCase()));
+            dataList.add(new NodeData<>(hotelEntity.getName().toLowerCase(), hotelEntity.getName()));
         }
         return dataList;
     }
