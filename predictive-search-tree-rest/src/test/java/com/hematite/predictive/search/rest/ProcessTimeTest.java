@@ -24,7 +24,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class TreeGenerator {
+public class ProcessTimeTest {
 
     private final PredictiveSearchTreeFactory predictiveSearchTreeFactory = new PredictiveSearchTreeFactory();
 
@@ -39,43 +39,34 @@ public class TreeGenerator {
 
         final TreeNode treeNode = predictiveSearchTreeFactory.createTree(nodeDataList);
 
-        final Instant start = Instant.now();
-
         try {
-            final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("requests.txt").toURI()));
-            for (String value : lines) {
+            final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("hotelsQuery.txt").toURI()));
+            final Instant start = Instant.now();
+            for (final String value : lines) {
                 treeNode.search(value);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+            final Instant finish = Instant.now();
+            final long timeElapsed = Duration.between(start, finish).toMillis();
+            System.out.println(timeElapsed);
+        } catch (final IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-
-        final Instant finish = Instant.now();
-        final long timeElapsed = Duration.between(start, finish).toMillis();
-
     }
 
     @Test
     public void testFindInDatabase() {
-
-        final Instant start = Instant.now();
-
         try {
-            final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("requests.txt").toURI()));
-            for (String value : lines) {
+            final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("hotelsQuery.txt").toURI()));
+            final Instant start = Instant.now();
+            for (final String value : lines) {
                 hotelRepository.findByNameValue(value);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+            final Instant finish = Instant.now();
+            final long timeElapsed = Duration.between(start, finish).toMillis();
+            System.out.println(timeElapsed);
+        } catch (final IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-
-        final Instant finish = Instant.now();
-        long timeElapsed = Duration.between(start, finish).toMillis();
-
     }
 
 }

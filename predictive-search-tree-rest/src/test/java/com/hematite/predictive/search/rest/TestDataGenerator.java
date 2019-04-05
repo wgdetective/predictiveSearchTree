@@ -1,4 +1,4 @@
-package com.hematite.predictive.search.mock;
+package com.hematite.predictive.search.rest;
 
 import com.hematite.predictive.search.tree.NodeData;
 import org.apache.commons.text.RandomStringGenerator;
@@ -16,7 +16,7 @@ public class TestDataGenerator {
         final List<String> queries = generateData(data);
 
         try {
-            final File file = new File("./predictive-search-tree-core/src/test/resources/hotelsQuery.txt");
+            final File file = new File("./predictive-search-tree-rest/src/test/resources/hotelsQuery.txt");
             file.createNewFile();
 
             final FileWriter fileWriter = new FileWriter(file, false);
@@ -34,17 +34,17 @@ public class TestDataGenerator {
     private static List<String> generateData(final List<NodeData> data) {
         final List<String> result = new ArrayList<>();
 
-        for (int i = 0; i < data.size(); i += 10) {
+        for (int i = 0; i < data.size(); i += 100) {
             result.add(data.get(i).getData().toString());
         }
 
         final char[][] range = {{'a', 'z'},
-                {' ',' '}};
+                                {' ',' '}};
 
         final RandomStringGenerator stringGenerator = new RandomStringGenerator.Builder()
                 .withinRange(range).build();
 
-        for (int i = 0; i < data.size(); i += 4) {
+        for (int i = 0; i < data.size(); i += 40) {
             final String currData = data.get(i).getData().toString();
             final int maxSize = currData.length();
             final int startIndex = maxSize != 0 ?
