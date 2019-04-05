@@ -65,8 +65,7 @@ public class TreeGenerator {
         try {
             final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("requests.txt").toURI()));
             for (String value : lines) {
-                value = "^" + value;
-                hotelRepository.findByNameRegex(value);
+                hotelRepository.findByNameValue(value);
             }
         } catch (IOException e) {
             e.printStackTrace();
