@@ -53,7 +53,7 @@ public class TestDataGenerator {
                     ThreadLocalRandom.current().nextInt(startIndex, maxSize) : maxSize;
             final String resultStr = currData.substring(startIndex, endIndex);
 
-            result.add(resultStr.isEmpty() ? stringGenerator.generate(1, 10) : resultStr);
+            result.add(resultStr.isEmpty() ? stringGenerator.generate(1, 10).trim() : resultStr.trim());
         }
 
         return result;
