@@ -1,52 +1,61 @@
 package com.hematite.predictive.search.mock;
 
+import com.hematite.predictive.search.tree.NodeData;
 import org.apache.commons.text.RandomStringGenerator;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TestDataGenerator {
 
-    public static List<String> generateData(final List<String> data) {
-        final List<String> result = new ArrayList<>();
-        final int resultSize = data.size() / 3;
+    public static void generateQueries(final List<NodeData> data) {
+        final List<String> queries = generateData(data);
 
-        // Add full value
-        for (int i = 0; i < data.size(); i += 10) {
-            result.add(data.get(i));
+        try {
+            final File file = new File("./predictive-search-tree-core/src/test/resources/hotelsQuery.txt");
+            file.createNewFile();
+
+            final FileWriter fileWriter = new FileWriter(file, false);
+
+            for (final String value : queries) {
+                fileWriter.write(value + "\n");
+            }
+
+            fileWriter.flush();
+        } catch (final IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    private static List<String> generateData(final List<NodeData> data) {
+        final List<String> result = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i += 10) {
+            result.add(data.get(i).getData().toString());
+        }
+
+        final char[][] range = {{'a', 'z'},
+                {' ',' '}};
 
         final RandomStringGenerator stringGenerator = new RandomStringGenerator.Builder()
-                .withinRange('a', 'z').build();
+                .withinRange(range).build();
 
-        final int resultWithValidQueries = (int) (result.size() * 2.5);
+        for (int i = 0; i < data.size(); i += 4) {
+            final String currData = data.get(i).getData().toString();
+            final int maxSize = currData.length();
+            final int startIndex = maxSize != 0 ?
+                    ThreadLocalRandom.current().nextInt(0, maxSize) : maxSize;
+            final int endIndex = startIndex != maxSize ?
+                    ThreadLocalRandom.current().nextInt(startIndex, maxSize) : maxSize;
+            final String resultStr = currData.substring(startIndex, endIndex);
 
-        // Add valid query
-        while (result.size() < resultWithValidQueries) {
-            final String value = stringGenerator.generate(1, 4);
-            if (isContain(value, data)) {
-                result.add(value);
-            }
-        }
-
-        // Add not valid query
-        while (result.size() < resultSize) {
-            final String value = stringGenerator.generate(1, 4);
-            if (!isContain(value, data)) {
-                result.add(value);
-            }
+            result.add(resultStr.isEmpty() ? stringGenerator.generate(1, 10) : resultStr);
         }
 
         return result;
-    }
-
-    private static boolean isContain(final String searchValue,
-                                     final List<String> list) {
-        for (final String value : list) {
-            if (value.contains(searchValue)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
