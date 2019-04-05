@@ -3,12 +3,16 @@ package com.hematite.predictive.search;
 import com.hematite.predictive.search.dataprovider.DataProvider;
 import com.hematite.predictive.search.dataprovider.FileDataProvider;
 import com.hematite.predictive.search.factory.PredictiveSearchTreeFactory;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableRabbit
+@EnableScheduling
 public class PredictiveSearchTreeApplication {
 
     @Value("${file.filename}")
