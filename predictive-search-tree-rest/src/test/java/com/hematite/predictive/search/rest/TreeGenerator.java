@@ -19,7 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -35,7 +34,10 @@ public class TreeGenerator {
     @Test
     public void testFindInTree() {
 
-        final TreeNode treeNode = predictiveSearchTreeFactory.createTree(HotelConverter.convertToDto(hotelRepository.findAll()));
+        final List<HotelEntity> hotelEntities = hotelRepository.findAll();
+        final List<NodeData> nodeDataList = HotelConverter.convertToDto(hotelEntities);
+
+        final TreeNode treeNode = predictiveSearchTreeFactory.createTree(nodeDataList);
 
         final Instant start = Instant.now();
 
@@ -63,7 +65,8 @@ public class TreeGenerator {
         try {
             final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("requests.txt").toURI()));
             for (String value : lines) {
-                hotelRepository.findByName(value);
+                value = "^" + value;
+                hotelRepository.findByNameRegex(value);
             }
         } catch (IOException e) {
             e.printStackTrace();
