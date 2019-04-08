@@ -27,4 +27,8 @@ public class SearchController {
         return searchService.search(searchValue);
     }
 
+    @GetMapping("/add")
+    public void add(@RequestParam String name) {
+        searchService.addToQueue(name);
+    }
 }

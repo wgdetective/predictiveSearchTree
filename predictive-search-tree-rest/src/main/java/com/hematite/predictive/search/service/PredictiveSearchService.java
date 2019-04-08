@@ -7,6 +7,7 @@ import com.hematite.predictive.search.tree.TreeNode;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,23 +43,29 @@ public class PredictiveSearchService {
     @Value("${response.routing.key}")
     private String responseRoutingKey;
 
+    @Value("${request.queue.name}")
+    String requestQueue;
+
     @PostConstruct
     public void init() {
         rootNode = treeFactory.createTree(dataProvider.getAllData());
     }
 
     public List<NodeData> search(final String text) {
-        return search(text, rootNode);
+        return rootNode.search(text);
     }
 
-    public List<NodeData> search(final String text,
-                                 final TreeNode treeNode) {
-        LOGGER.info("Sending request message: " + text);
-        rabbitTemplate.convertAndSend(requestExchange, requestRoutingKey, text);
+    public void searchFromQueue(final String text) {
 
-        final List<NodeData> nodeDataList = treeNode.search(text);
+        final List<NodeData> nodeDataList = rootNode.search(text);
         rabbitTemplate.convertAndSend(responseExchange, responseRoutingKey, nodeDataList);
+        LOGGER.info("Send response message to queue: " + nodeDataList);
 
-        return nodeDataList;
     }
+
+    public void addToQueue(final String name) {
+        rabbitTemplate.convertAndSend(requestExchange, requestRoutingKey, name);
+        LOGGER.info("Send request message to queue: " + name);
+    }
+
 }
