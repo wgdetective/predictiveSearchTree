@@ -16,9 +16,7 @@ public class TestDataGenerator {
         final List<String> queries = generateData(data);
 
         try {
-            final File file = new File("./predictive-search-tree-rest/src/test/resources/hotelsQuery.txt");
-            file.createNewFile();
-
+            final File file = new File(ClassLoader.getSystemResource("hotelsQuery.txt").getPath());
             final FileWriter fileWriter = new FileWriter(file, false);
 
             for (final String value : queries) {
@@ -34,7 +32,7 @@ public class TestDataGenerator {
     private static List<String> generateData(final List<NodeData> data) {
         final List<String> result = new ArrayList<>();
 
-        for (int i = 0; i < data.size(); i += 100) {
+        for (int i = 0; i < data.size(); i += 10) {
             result.add(data.get(i).getData().toString());
         }
 
@@ -44,7 +42,7 @@ public class TestDataGenerator {
         final RandomStringGenerator stringGenerator = new RandomStringGenerator.Builder()
                 .withinRange(range).build();
 
-        for (int i = 0; i < data.size(); i += 40) {
+        for (int i = 0; i < data.size(); i += 4) {
             final String currData = data.get(i).getData().toString();
             final int maxSize = currData.length();
             final int startIndex = maxSize != 0 ?

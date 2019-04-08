@@ -8,6 +8,8 @@ import com.hematite.predictive.search.tree.NodeData;
 import com.hematite.predictive.search.tree.TreeNode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -25,6 +27,8 @@ import java.util.List;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ProcessTimeTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessTimeTest.class);
 
     private final PredictiveSearchTreeFactory predictiveSearchTreeFactory = new PredictiveSearchTreeFactory();
 
@@ -47,7 +51,7 @@ public class ProcessTimeTest {
             }
             final Instant finish = Instant.now();
             final long timeElapsed = Duration.between(start, finish).toMillis();
-            System.out.println(timeElapsed);
+            LOGGER.info("Time for processing queries with tree: {}", timeElapsed);
         } catch (final IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -59,11 +63,11 @@ public class ProcessTimeTest {
             final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("hotelsQuery.txt").toURI()));
             final Instant start = Instant.now();
             for (final String value : lines) {
-                hotelRepository.findByNameValue(value);
+                hotelRepository.findTop10ByNameContains(value);
             }
             final Instant finish = Instant.now();
             final long timeElapsed = Duration.between(start, finish).toMillis();
-            System.out.println(timeElapsed);
+            LOGGER.info("Time for processing queries with database: {}", timeElapsed);
         } catch (final IOException | URISyntaxException e) {
             e.printStackTrace();
         }
