@@ -19,16 +19,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class RabbitMQConfig {
 
     @Value("${request.queue.name}")
-    String requestQueue;
+    private String requestQueue;
 
     @Value("${response.queue.name}")
-    String responseQueue;
+    private String responseQueue;
 
     @Value("${request.exchange.name}")
-    String requestExchange;
+    private String requestExchange;
 
     @Value("${response.exchange.name}")
-    String responseExchange;
+    private String responseExchange;
 
     @Value("${request.routing.key}")
     private String requestRoutingKey;
@@ -47,22 +47,24 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    DirectExchange requestExchange() {
+    public DirectExchange requestExchange() {
         return new DirectExchange(requestExchange);
     }
 
     @Bean
-    DirectExchange responseExchange() {
+    public DirectExchange responseExchange() {
         return new DirectExchange(responseExchange);
     }
 
     @Bean
-    Binding bindingRequest(@Qualifier("requestQueue") Queue queue, @Qualifier("requestExchange") DirectExchange exchange) {
+    public Binding bindingRequest(@Qualifier("requestQueue") final Queue queue,
+                                  @Qualifier("requestExchange") final DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(requestRoutingKey);
     }
 
     @Bean
-    Binding bindingResponse(@Qualifier("responseQueue") Queue queue, @Qualifier("responseExchange") DirectExchange exchange) {
+    public Binding bindingResponse(@Qualifier("responseQueue") final Queue queue,
+                                   @Qualifier("responseExchange") final DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(responseRoutingKey);
     }
 
@@ -71,12 +73,10 @@ public class RabbitMQConfig {
         return new Jackson2JsonMessageConverter();
     }
 
-
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+    @Bean
+    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
     }
-
-
 }
