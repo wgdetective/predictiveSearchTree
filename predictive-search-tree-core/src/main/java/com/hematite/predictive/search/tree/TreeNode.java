@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -27,10 +24,14 @@ public class TreeNode {
         this(key, values, new HashMap<>(), parentNode);
     }
 
-    public List<NodeData> search(final String text) {
+    public List<SearchResult> search(final String text) {
         final String normalizedText = text.toLowerCase();
         if (key.equals(normalizedText)) {
-            return values;
+            final List<SearchResult> result = new ArrayList<>();
+            for (final NodeData value : values) {
+                result.add(new SearchResult(value.getKey(), value.getData().toString()));
+            }
+            return result;
         } else if (!childNodes.isEmpty()) {
             final TreeNode treeNode = childNodes.get(normalizedText.substring(0, key.length() + 1));
             if (treeNode != null) {

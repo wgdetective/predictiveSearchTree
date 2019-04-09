@@ -2,7 +2,7 @@ package com.hematite.predictive.search.service;
 
 import com.hematite.predictive.search.dataprovider.DataProvider;
 import com.hematite.predictive.search.factory.PredictiveSearchTreeFactory;
-import com.hematite.predictive.search.tree.NodeData;
+import com.hematite.predictive.search.tree.SearchResult;
 import com.hematite.predictive.search.tree.TreeNode;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -37,12 +37,12 @@ public class PredictiveSearchService {
         rootNode = treeFactory.createTree(dataProvider.getAllData());
     }
 
-    public List<NodeData> search(final String text) {
+    public List<SearchResult> search(final String text) {
         return rootNode.search(text);
     }
 
     public void searchFromQueue(final String text) {
-        final List<NodeData> nodeDataList = search(text);
+        final List<SearchResult> nodeDataList = search(text);
         rabbitTemplate.convertAndSend(responseExchange, responseRoutingKey, nodeDataList);
         LOGGER.info("Send response message to queue: {}", nodeDataList);
     }

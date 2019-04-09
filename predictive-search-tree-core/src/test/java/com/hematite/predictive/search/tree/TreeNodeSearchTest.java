@@ -29,13 +29,13 @@ public class TreeNodeSearchTest {
 
     @Test
     public void searchTest() {
-        final List<NodeData> search = root.search("Mu");
+        final List<SearchResult> search = root.search("Mu");
         assertEquals(search.size(), 3);
     }
 
     @Test
     public void searchTestWithEmptyResult() {
-        final List<NodeData> search = root.search("wrong_string");
+        final List<SearchResult> search = root.search("wrong_string");
         assertEquals(search.size(), 0);
     }
 }
