@@ -4,45 +4,16 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="create_tree_node_table" author="mary">
-        <createTable tableName="tree_node">
+    <changeSet id="create_hotels_table" author="mary">
+        <createTable tableName="hotels">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="ids" type="text"/>
+            <column name="star" type="varchar(20)"/>
             <column name="name" type="text"/>
-            <column name="date" type="date"/>
-            <column name="description" type="text"/>
+
         </createTable>
-    </changeSet>
-
-    <changeSet id="add_tree_node_text" author="mary">
-
-        <createProcedure path="proc/mysql.sql"
-                         procedureName="fill_tree_node"
-                         schemaName="predictiveSearchTree">
-        </createProcedure>
-
-    </changeSet>
-
-    <changeSet id="call_proc_for_tree_node" author="mary">
-        <sql>
-            call fill_tree_node();
-        </sql>
-    </changeSet>
-
-    <changeSet id="add_dates" author="mary">
-
-        <createProcedure path="proc/addDates.sql"
-                         procedureName="add_dates"
-                         schemaName="predictiveSearchTree">
-        </createProcedure>
-
-    </changeSet>
-
-    <changeSet id="call_proc_for_add_dates" author="mary">
-        <sql>
-            call add_dates();
-        </sql>
     </changeSet>
 
 </databaseChangeLog>
