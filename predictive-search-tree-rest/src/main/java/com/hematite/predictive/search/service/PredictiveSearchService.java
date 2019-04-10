@@ -41,9 +41,10 @@ public class PredictiveSearchService {
         return rootNode.search(text);
     }
 
-    public void searchFromQueue(final String text) {
-        final List<SearchResult> nodeDataList = search(text);
-        rabbitTemplate.convertAndSend(responseExchange, responseRoutingKey, nodeDataList);
-        LOGGER.info("Send response message to queue: {}", nodeDataList);
-    }
+	//TODO serch service shouldn't knowabout rabbit - move to listener
+	public void searchFromQueue(final String text) {
+		final List<SearchResult> nodeDataList = search(text);
+		rabbitTemplate.convertAndSend(responseExchange, responseRoutingKey, nodeDataList);
+		LOGGER.info("Send response message to queue: {}", nodeDataList);
+	}
 }
