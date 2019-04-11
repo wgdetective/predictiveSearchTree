@@ -1,4 +1,3 @@
-/*
 package com.hematite.predictive.search.dataprovider.config;
 
 import org.neo4j.ogm.session.SessionFactory;
@@ -11,10 +10,11 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@ComponentScan(basePackages = { "com.hematite.predictive.search.dataprovider" })
 @Configuration
-//@EnableNeo4jRepositories(basePackages = "com.hematite.predictive.search.dataprovider.rep")
-@ComponentScan("com.hematite.predictive.search.dataprovider")
-@EntityScan(basePackages = "com.hematite.predictive.search.dataprovider.entity")
+//@EnableTransactionManagement
+@EnableNeo4jRepositories(basePackages = "com.hematite.predictive.search.dataprovider.rep")
+//@EntityScan(basePackages = "com.hematite.predictive.search.dataprovider.entity")
 public class Neo4JConfig {
 
     @Value("${neo4j.url}")
@@ -28,7 +28,7 @@ public class Neo4JConfig {
     @Bean
     public SessionFactory getSessionFactory() {
         return new SessionFactory(getConfiguration(),
-                "com.hematite.predictive.search.dataprovider.entity");
+                "com.hematite.predictive.search.dataprovider.ent");
     }
 
     @Bean
@@ -36,4 +36,3 @@ public class Neo4JConfig {
         return new Neo4jTransactionManager(getSessionFactory());
     }
 }
-*/

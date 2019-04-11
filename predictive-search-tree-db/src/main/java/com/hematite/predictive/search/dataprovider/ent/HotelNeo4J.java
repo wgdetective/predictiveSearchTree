@@ -1,4 +1,4 @@
-package com.hematite.predictive.search.dataprovider.entity;
+package com.hematite.predictive.search.dataprovider.ent;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,6 @@ import javax.persistence.Id;
 
 
 @Data
-@Entity
 @NodeEntity
 @NoArgsConstructor
 public class HotelNeo4J {
