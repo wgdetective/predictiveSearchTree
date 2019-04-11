@@ -2,6 +2,7 @@ package com.hematite.predictive.search.rest;
 
 import com.hematite.predictive.search.dataprovider.converter.HotelConverter;
 import com.hematite.predictive.search.dataprovider.entity.HotelEntity;
+import com.hematite.predictive.search.dataprovider.repository.HotelNeo4JRepository;
 import com.hematite.predictive.search.dataprovider.repository.HotelRepository;
 import com.hematite.predictive.search.factory.PredictiveSearchTreeFactory;
 import com.hematite.predictive.search.tree.NodeData;
@@ -34,6 +35,9 @@ public class ProcessTimeTest {
 
     @Autowired
     private HotelRepository hotelRepository;
+
+    @Autowired
+    private HotelNeo4JRepository hotelNeo4JRepository;
 
     @Test
     public void testFindInTree() {
@@ -71,6 +75,12 @@ public class ProcessTimeTest {
         } catch (final IOException | URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testFindUsingNeo4J() {
+        hotelNeo4JRepository.findAll();
+
     }
 
 }
