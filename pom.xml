@@ -17,6 +17,7 @@
         <module>predictive-search-tree-file</module>
         <module>predictive-search-tree-db</module>
         <module>predictive-search-tree-rest</module>
+        <module>predictive-search-tree-core-neo4j</module>
     </modules>
 
     <groupId>com.hematit</groupId>
@@ -43,20 +44,6 @@
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>3.8</version>
-        </dependency>
-
-        <!--<dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-neo4j</artifactId>
-            <version>5.0.1.RELEASE</version>
-        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-neo4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-ogm-http-driver</artifactId>
         </dependency>
 
     </dependencies>

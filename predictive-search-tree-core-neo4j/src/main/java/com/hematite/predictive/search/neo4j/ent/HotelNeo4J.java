@@ -1,4 +1,4 @@
-package com.hematite.predictive.search.dataprovider.ent;
+package com.hematite.predictive.search.neo4j.ent;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

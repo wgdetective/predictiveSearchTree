@@ -1,6 +1,6 @@
-package com.hematite.predictive.search.dataprovider.rep;
+package com.hematite.predictive.search.neo4j.rep;
 
-import com.hematite.predictive.search.dataprovider.ent.HotelNeo4J;
+import com.hematite.predictive.search.neo4j.ent.HotelNeo4J;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 

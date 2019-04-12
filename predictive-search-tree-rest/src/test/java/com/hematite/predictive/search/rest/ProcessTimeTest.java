@@ -2,7 +2,6 @@ package com.hematite.predictive.search.rest;
 
 import com.hematite.predictive.search.dataprovider.converter.HotelConverter;
 import com.hematite.predictive.search.dataprovider.entity.HotelEntity;
-import com.hematite.predictive.search.dataprovider.rep.HotelNeo4JRepository;
 import com.hematite.predictive.search.dataprovider.repository.HotelRepository;
 import com.hematite.predictive.search.factory.PredictiveSearchTreeFactory;
 import com.hematite.predictive.search.tree.NodeData;
@@ -12,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -36,9 +34,6 @@ public class ProcessTimeTest {
 
     @Autowired
     private HotelRepository hotelRepository;
-
-    @Autowired
-    private HotelNeo4JRepository hotelNeo4JRepository;
 
     @Test
     public void testFindInTree() {
@@ -76,12 +71,6 @@ public class ProcessTimeTest {
         } catch (final IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void testFindUsingNeo4J() {
-        hotelNeo4JRepository.findAll();
-
     }
 
 }
