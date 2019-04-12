@@ -16,11 +16,11 @@ public class HotelUtils {
             fileWriter.write("INSERT INTO hotels(ids, star, name) values");
 
             final CSVReader reader = new CSVReader(new FileReader(new File(
-                    "./predictive-search-tree-db/src/main/resources/csvFiles/hotels.rooms.2019-03-26T23_00_01.csv")));
+                    "./predictive-search-tree-db/src/main/resources/csvFiles/hotels.sunhotels.2019-03-26T23_00_01.csv")));
 
             String[] values = reader.readNext();
             writeFile(fileWriter, values);
-            while ((values = reader.readNext()) != null && rowsCount < 75000) {
+            while ((values = reader.readNext()) != null && rowsCount < 200000) {
                 fileWriter.write(",");
                 writeFile(fileWriter, values);
                 rowsCount++;

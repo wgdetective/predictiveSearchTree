@@ -14,8 +14,11 @@ public class PredictiveSearchTreeFactory {
 
     private final TextSearchService textSearchService = new TextSearchService();
 
+    private long nodeCount = 0;
+
     public TreeNode createTree(final List<NodeData> data) {
         final TreeNode rootNode = new TreeNode("", getSubList(data));
+        nodeCount++;
 
         data.forEach(d -> d.setPrefix(textSearchService.calculatePrefixFunction(d.getKey())));
 
@@ -24,6 +27,7 @@ public class PredictiveSearchTreeFactory {
             if (!filteredList.isEmpty()) {
                 final TreeNode childNode = new TreeNode(key, new ArrayList<>(), rootNode);
                 rootNode.addChildNode(key, childNode);
+                nodeCount++;
                 createChildNodes(filteredList, childNode);
             }
         }
@@ -42,6 +46,7 @@ public class PredictiveSearchTreeFactory {
                 if (!parentNode.getChildNodes().containsKey(newKey)) {
                     final TreeNode childNode = new TreeNode(newKey, new ArrayList<>(), parentNode);
                     parentNode.addChildNode(newKey, childNode);
+                    nodeCount++;
                 }
             }
         }
@@ -65,5 +70,9 @@ public class PredictiveSearchTreeFactory {
             symbols.add(String.valueOf(i));
         }
         return symbols;
+    }
+
+    public long getNodeCount() {
+        return nodeCount;
     }
 }
