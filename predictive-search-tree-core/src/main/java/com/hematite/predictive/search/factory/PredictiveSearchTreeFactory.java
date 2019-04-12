@@ -46,6 +46,7 @@ public class PredictiveSearchTreeFactory {
                 if (!parentNode.getChildNodes().containsKey(newKey)) {
                     final TreeNode childNode = new TreeNode(newKey, new ArrayList<>(), parentNode);
                     parentNode.addChildNode(newKey, childNode);
+                    nodeCount++;
                 }
             }
         }
