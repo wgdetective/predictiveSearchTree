@@ -6,7 +6,7 @@ import java.io.*;
 
 public class HotelUtils {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         try {
             int rowsCount = 1;
             final File newFile = new File("./predictive-search-tree-db/src/main/resources/sql/hotels.sql");

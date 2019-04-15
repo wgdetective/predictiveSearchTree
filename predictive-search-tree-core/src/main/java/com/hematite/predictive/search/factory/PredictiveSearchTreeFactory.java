@@ -38,16 +38,18 @@ public class PredictiveSearchTreeFactory {
     private void createChildNodes(final List<NodeData> words, final TreeNode parentNode) {
         parentNode.getValues().addAll(getSubList(words));
         for (final NodeData nodeData : words) {
-            final int startIndex = nodeData.getKey().indexOf(parentNode.getKey());
-            final int endIndex = startIndex + parentNode.getKey().length() + 1;
-
-            if (startIndex > -1 && endIndex < nodeData.getKey().length() + 1) {
-                final String newKey = nodeData.getKey().substring(startIndex, endIndex);
-                if (!parentNode.getChildNodes().containsKey(newKey)) {
-                    final TreeNode childNode = new TreeNode(newKey, new ArrayList<>(), parentNode);
-                    parentNode.addChildNode(newKey, childNode);
-                    nodeCount++;
+            int startIndex = 0;
+            while ((startIndex = nodeData.getKey().indexOf(parentNode.getKey(), startIndex)) != -1) {
+                final int endIndex = startIndex + parentNode.getKey().length() + 1;
+                if (endIndex < nodeData.getKey().length() + 1) {
+                    final String newKey = nodeData.getKey().substring(startIndex, endIndex);
+                    if (!parentNode.getChildNodes().containsKey(newKey)) {
+                        final TreeNode childNode = new TreeNode(newKey, new ArrayList<>(), parentNode);
+                        parentNode.addChildNode(newKey, childNode);
+                        nodeCount++;
+                    }
                 }
+                startIndex++;
             }
         }
 

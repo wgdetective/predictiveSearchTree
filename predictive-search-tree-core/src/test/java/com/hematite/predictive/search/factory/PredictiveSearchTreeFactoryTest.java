@@ -55,4 +55,19 @@ public class PredictiveSearchTreeFactoryTest {
         assertEquals(1, childNodeWithSpace.getChildNodes().size());
         assertTrue(childNodeWithSpace.getChildNodes().containsKey("a "));
     }
+
+    @Test
+    public void testCreationWithMultipleMatching() {
+        final List<NodeData> nodeData = NodeDataMock.createList(Collections.singletonList("aabad"));
+
+        final TreeNode node = factory.createTree(nodeData);
+        assertNotNull(node);
+
+        final TreeNode childNode = node.getChildNodes().get("a");
+
+        assertEquals(3, childNode.getChildNodes().size());
+        assertTrue(childNode.getChildNodes().containsKey("aa"));
+        assertTrue(childNode.getChildNodes().containsKey("ab"));
+        assertTrue(childNode.getChildNodes().containsKey("ad"));
+    }
 }
