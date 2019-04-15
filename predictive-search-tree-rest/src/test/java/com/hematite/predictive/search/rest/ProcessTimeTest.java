@@ -40,7 +40,11 @@ public class ProcessTimeTest {
         final List<HotelEntity> hotelEntities = hotelRepository.findAll();
         final List<NodeData> nodeDataList = HotelConverter.convertToDto(hotelEntities);
 
+        final Instant startTree = Instant.now();
         final TreeNode treeNode = predictiveSearchTreeFactory.createTree(nodeDataList);
+        final Instant finishTree = Instant.now();
+        final long timeElapsedTree = Duration.between(startTree, finishTree).toMillis();
+        LOGGER.info("Time for create tree with tree-core: {}", timeElapsedTree);
 
         try {
             final List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("hotelsQuery.txt").toURI()));
