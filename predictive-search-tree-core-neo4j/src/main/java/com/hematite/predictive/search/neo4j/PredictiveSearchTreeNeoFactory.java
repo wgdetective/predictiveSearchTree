@@ -6,7 +6,9 @@ import com.hematite.predictive.search.neo4j.repository.HotelNeo4JRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class PredictiveSearchTreeNeoFactory {
@@ -29,23 +31,28 @@ public class PredictiveSearchTreeNeoFactory {
 
         data.forEach(d -> d.setPrefix(textSearchServiceNeo.calculatePrefixFunction(d.getKey())));
 
-        for (final String key : symbols) {
-            final List<NodeDataNeo> filteredList = textSearchServiceNeo.search(data, key);
-            if (!filteredList.isEmpty()) {
-                final TreeNodeNeo childNode = new TreeNodeNeo();
-                childNode.setKey(key);
-                childNode.setValues(new ArrayList<>());
-                nodeCount++;
-                createChildNodes(filteredList, childNode);
+        symbols.parallelStream().forEach(key -> {
+
+                final List<NodeDataNeo> filteredList = textSearchServiceNeo.search(data, key);
+                if (!filteredList.isEmpty()) {
+                    final TreeNodeNeo childNode = new TreeNodeNeo();
+                    childNode.setKey(key);
+                    childNode.setValues(new ArrayList<>());
+                    nodeCount++;
+                    createChildNodes(filteredList, childNode);
+                }
             }
-        }
+        );
+
         hotelNeo4JRepository.save(rootNode);
     }
 
     private void createChildNodes(final List<NodeDataNeo> words, final TreeNodeNeo parentNode) {
         parentNode.setValues(getSubList(words));
-        final List<TreeNodeNeo> childNodes = new ArrayList<>();
-        for (final NodeDataNeo nodeData : words) {
+        final Map<String, TreeNodeNeo> childNodes = new HashMap();
+
+        words.parallelStream().forEach(nodeData -> {
+
             int startIndex = 0;
             while ((startIndex = nodeData.getKey().indexOf(parentNode.getKey(), startIndex)) != -1) {
                 final int endIndex = startIndex + parentNode.getKey().length() + 1;
@@ -55,21 +62,23 @@ public class PredictiveSearchTreeNeoFactory {
                     final TreeNodeNeo childNode = new TreeNodeNeo();
                     childNode.setKey(newKey);
                     childNode.setValues(new ArrayList<>());
-                    if (!childNodes.contains(childNode)) {
-                        childNodes.add(childNode);
+                    if (!childNodes.containsKey(newKey)) {
+                        childNodes.put(newKey, childNode);
                         nodeCount++;
                     }
                 }
                 startIndex++;
             }
-        }
+
+        });
 
         hotelNeo4JRepository.save(parentNode);
 
-        for (final TreeNodeNeo childNode : childNodes) {
+        for (final Map.Entry<String, TreeNodeNeo> childNode  : childNodes.entrySet()) {
             final List<NodeDataNeo> filteredList = textSearchServiceNeo.search(words, childNode.getKey());
-            createChildNodes(filteredList, childNode);
+            createChildNodes(filteredList, childNode.getValue());
         }
+
     }
 
     private List<NodeDataNeo> getSubList(final List<NodeDataNeo> list) {
