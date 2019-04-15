@@ -75,7 +75,7 @@ public class ProcessTimeTest {
     @Test
     public void testFindInNeo4J() throws URISyntaxException, IOException {
         final PredictiveSearchTreeNeoFactory predictiveSearchTreeNeoFactory = new PredictiveSearchTreeNeoFactory(hotelNeo4JRepository);
-        final List<String> nodes = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("hotels.txt").toURI()));
+        final List<String> nodes = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("hotels1.txt").toURI()));
 
         final List<NodeDataNeo> nodeDataNeoList = new ArrayList<>();
         for (final String nodeData : nodes) {

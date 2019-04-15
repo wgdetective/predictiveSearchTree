@@ -30,11 +30,12 @@ public class TextSearchServiceNeo {
     public List<NodeDataNeo> search(final List<NodeDataNeo> originalData,
                                     final String text) {
         final List<NodeDataNeo> matchedList = new ArrayList<>();
-        for (final NodeDataNeo data : originalData) {
+
+        originalData.stream().forEach(data -> {
             if (compareWithKey(data, text)) {
-                matchedList.add(data);
-            }
-        }
+             matchedList.add(data);
+           }
+        });
         return matchedList;
     }
 

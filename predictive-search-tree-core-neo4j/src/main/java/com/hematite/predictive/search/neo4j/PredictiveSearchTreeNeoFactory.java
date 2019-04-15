@@ -28,10 +28,9 @@ public class PredictiveSearchTreeNeoFactory {
         rootNode.setKey("");
         rootNode.setValues(getSubList(data));
         nodeCount++;
-
         data.forEach(d -> d.setPrefix(textSearchServiceNeo.calculatePrefixFunction(d.getKey())));
 
-        symbols.parallelStream().forEach(key -> {
+        symbols.stream().forEach(key -> {
 
                 final List<NodeDataNeo> filteredList = textSearchServiceNeo.search(data, key);
                 if (!filteredList.isEmpty()) {
@@ -43,7 +42,6 @@ public class PredictiveSearchTreeNeoFactory {
                 }
             }
         );
-
         hotelNeo4JRepository.save(rootNode);
     }
 
@@ -52,12 +50,14 @@ public class PredictiveSearchTreeNeoFactory {
         final Map<String, TreeNodeNeo> childNodes = new HashMap();
 
         words.parallelStream().forEach(nodeData -> {
-
+            String nodeDataLength = nodeData.getKey();
+            String parentNodeKey = parentNode.getKey();
+            int parentNodeKeyLength = parentNodeKey.length() + 1;
             int startIndex = 0;
-            while ((startIndex = nodeData.getKey().indexOf(parentNode.getKey(), startIndex)) != -1) {
-                final int endIndex = startIndex + parentNode.getKey().length() + 1;
+            while ((startIndex = nodeData.getKey().indexOf(parentNodeKey, startIndex)) != -1) {
+                final int endIndex = startIndex + parentNodeKeyLength;
 
-                if (endIndex < nodeData.getKey().length() + 1) {
+                if (endIndex < nodeDataLength.length() + 1) {
                     final String newKey = nodeData.getKey().substring(startIndex, endIndex);
                     final TreeNodeNeo childNode = new TreeNodeNeo();
                     childNode.setKey(newKey);
