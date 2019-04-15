@@ -1,10 +1,10 @@
 # Predictive Search Tree
-Time for processing queries with tree: 90 ms*  
-Time for processing queries with database: 970 000 ms*  
+Time for processing queries with tree: 356 ms*  
+Time for processing queries with database: 3 095 985 ms*  
 
-*75 000 rows and 26 000 queries
+\* 200 000 rows, 70 000 queries(tree) and 26 000 queries(database)
 
-## Installation and getting started:
+## Installation and getting started
   
 1\.	Download predictive-search-tree-core module from GitHub (https://github.com/wgdetective/predictiveSearchTree/tree/develop) and add maven dependency:
 ```
