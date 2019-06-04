@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface HotelRepository extends JpaRepository<HotelEntity, Long> {
 
-    List<HotelEntity> findTop10ByNameContains(final String name);
+    List<HotelEntity> findTop10ByHotelNameContains(final String name);
 }

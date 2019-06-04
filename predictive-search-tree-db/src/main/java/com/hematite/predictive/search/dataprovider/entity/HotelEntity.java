@@ -14,8 +14,8 @@ public class HotelEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private String ids;
-    private String star;
-    private String name;
+    private String hotelId;
+    private String langId;
+    private String hotelName;
 
 }

@@ -13,10 +13,10 @@ public class HotelUtils {
             newFile.createNewFile();
 
             final FileWriter fileWriter = new FileWriter(newFile, false);
-            fileWriter.write("INSERT INTO hotels(ids, star, name) values");
+            fileWriter.write("INSERT INTO hotels(hotel_id, lang_id, hotel_name) values");
 
             final CSVReader reader = new CSVReader(new FileReader(new File(
-                    "./predictive-search-tree-db/src/main/resources/csvFiles/hotels.sunhotels.2019-03-26T23_00_01.csv")));
+                    "./predictive-search-tree-db/src/main/resources/csvFiles/hotels.csv")));
 
             String[] values = reader.readNext();
             writeFile(fileWriter, values);
@@ -36,7 +36,7 @@ public class HotelUtils {
     private static void writeFile(final FileWriter fileWriter,
                                   final String[] values)
             throws IOException {
-        values[15] = values[15].replaceAll("\"", "");
-        fileWriter.write("\n(\"" + values[0] + "\", \"" + values[4] + "\", \"" + values[15] + "\")");
+        values[2] = values[2].replaceAll("\"", "");
+        fileWriter.write("\n(\"" + values[0] + "\", \"" + values[1] + "\", \"" + values[2] + "\")");
     }
 }

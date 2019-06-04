@@ -63,7 +63,7 @@ public class ProcessTimeTest {
                     Files.readAllLines(Paths.get(ClassLoader.getSystemResource("hotelsQuery.txt").toURI())).subList(0, 26000);
             final Instant start = Instant.now();
             for (final String value : lines) {
-                hotelRepository.findTop10ByNameContains(value);
+                hotelRepository.findTop10ByHotelNameContains(value);
             }
             final Instant finish = Instant.now();
             final long timeElapsed = Duration.between(start, finish).toMillis();
